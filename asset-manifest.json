@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ashot-schedule-planner/static/css/main.ec5d7a10.css",
+    "main.js": "/ashot-schedule-planner/static/js/main.fa5c81ba.js",
+    "index.html": "/ashot-schedule-planner/index.html",
+    "main.ec5d7a10.css.map": "/ashot-schedule-planner/static/css/main.ec5d7a10.css.map",
+    "main.fa5c81ba.js.map": "/ashot-schedule-planner/static/js/main.fa5c81ba.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ec5d7a10.css",
+    "static/js/main.fa5c81ba.js"
+  ]
+}
