@@ -5,6 +5,7 @@ import AvailabilityForm from './components/AvailabilityForm';
 import SchedulePlanner from './components/SchedulePlanner';
 // import ShiftCount from './components/ShiftCount';
 import AlertMessages from './components/AlertMessages';
+import Logo from './components/Logo';
 
 function App() {
   const [guards, setGuards] = useState([]);
@@ -44,9 +45,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Guard Schedule Planner</h1>
+        <h1 onClick={resetApp}>Guard Schedule Planner</h1>
         {!guards.length && (
           <div>
+            <Logo />
             <p className="App-subtitle">Save time and headache with automated scheduling!</p>
             <button className="auto-fill-button" onClick={handleAutoFill}>Ashot Team</button>
           </div>
