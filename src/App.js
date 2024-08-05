@@ -3,12 +3,14 @@ import React, { useState } from 'react';
 import NameInput from './components/NameInput';
 import AvailabilityForm from './components/AvailabilityForm';
 import SchedulePlanner from './components/SchedulePlanner';
+// import ShiftCount from './components/ShiftCount';
+import AlertMessages from './components/AlertMessages';
 
 function App() {
   const [guards, setGuards] = useState([]);
   const [availability, setAvailability] = useState(null);
   const [shiftCounts, setShiftCounts] = useState({});
-
+  const [alertMessages, setAlertMessages] = useState([]);
 
   const handleNamesSubmit = (nameArray) => {
     setGuards(nameArray);
@@ -23,19 +25,34 @@ function App() {
     setGuards(teamNames);
   };
 
-  const handleScheduleCompletion = (guardList) => {
+  const handleScheduleCompletion = (guardList, messages) => {
     let shiftCountMap = {};
     guardList.forEach(guard => {
-      shiftCountMap[guard.name] = guard.assignedShiftsCount;
+      shiftCountMap[guard.getName()] = guard.getAssignedShiftsCount();
     });
     setShiftCounts(shiftCountMap);
+    setAlertMessages(messages);
+  };
+
+  const resetApp = () => {
+    setGuards([]);
+    setAvailability(null);
+    setShiftCounts({});
+    setAlertMessages([]);
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>Guard Schedule Planner</h1>
-        {!guards.length && <button onClick={handleAutoFill}>Ashot Team</button>}
+        {!guards.length && (
+          <div>
+            <p className="App-subtitle">Save time and headache with automated scheduling!</p>
+            <button className="auto-fill-button" onClick={handleAutoFill}>Ashot Team</button>
+          </div>
+        )}
+      </header>
+      <main>
         {!guards.length ? (
           <NameInput onNamesSubmit={handleNamesSubmit} />
         ) : !availability ? (
@@ -47,9 +64,12 @@ function App() {
               guards={guards}
               onComplete={handleScheduleCompletion}
             />
+            {/* <ShiftCount guards={guards} shiftCounts={shiftCounts} /> */}
+            {alertMessages.length ? (<AlertMessages messages={alertMessages} />) : (<></>)}
+            <button className="reset-button" onClick={resetApp}>Reset</button>
           </>
         )}
-      </header>
+      </main>
     </div>
   );
 }

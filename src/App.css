@@ -1,4 +1,4 @@
-/* General body styling */
+/* General body and layout styling */
 body, html {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f0f2f5;
@@ -6,6 +6,7 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
+  overflow-y: auto;
 }
 
 body {
@@ -13,10 +14,9 @@ body {
   justify-content: center;
   align-items: flex-start;
   min-height: 100%;
-  overflow-y: auto; /* Allow scrolling */
+  overflow-y: auto;
 }
 
-/* Centered container */
 .App {
   text-align: center;
   background-color: #ffffff;
@@ -26,8 +26,8 @@ body {
   width: 100%;
   max-width: 900px;
   margin: 20px 0;
-  flex-grow: 1; /* Allow the component to grow to fill available space */
-  overflow-y: auto; /* Allows scrolling */
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 /* Header styling */
@@ -41,7 +41,6 @@ h1 {
   margin-bottom: 20px;
 }
 
-/* Guard name styling */
 h3 {
   color: #007bff;
   border-bottom: 2px solid #007bff;
@@ -50,7 +49,51 @@ h3 {
   margin: 20px 0 10px;
 }
 
-/* Day and shift container */
+p.App-subtitle {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Input and form styling */
+.name-input-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.name-input-label {
+  margin-right: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.name-input-field {
+  padding: 8px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 300px;
+}
+
+button, .name-input-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover, .name-input-button:hover {
+  background-color: #0056b3;
+}
+
+/* Checkbox styling */
 .day-container {
   margin-bottom: 15px;
 }
@@ -70,103 +113,40 @@ input[type="checkbox"] {
   margin-right: 5px;
 }
 
-/* Button styling */
-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1em;
-  margin-top: 20px;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
 /* Table styling */
-.schedule-table {
-  margin: 20px 0;
-}
-
-.schedule-table table {
+table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.schedule-table th, .schedule-table td {
+th, td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
-.schedule-table th {
+th {
   background-color: #007bff;
   color: white;
   font-weight: bold;
 }
 
-.schedule-table td {
+td {
   background-color: #f9f9f9;
 }
 
-.schedule-table tr:nth-child(even) {
+tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-.schedule-table tr:hover {
+tr:hover {
   background-color: #ddd;
 }
 
-.shift-count {
-  margin-top: 20px;
-}
-
-.shift-count table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-.shift-count th, .shift-count td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-}
-
-.shift-count th {
-  background-color: #007bff;
-  color: white;
-  font-weight: bold;
-}
-
-.shift-count tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.shift-count tr:hover {
-  background-color: #ddd;
-}
-
-/* Add styles for the "Ashot Team" button */
-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1em;
-  margin-top: 20px;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #0056b3;
+/* Specific sections styling */
+.schedule-table, .shift-count {
+  margin: 20px 0;
 }
 
 .alert-messages {
@@ -191,43 +171,6 @@ button:hover {
   margin: 5px 0;
 }
 
-.name-input-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px;
-}
-
-.name-input-label {
-  margin-right: 10px;
-  font-weight: bold;
-  font-size: 1.2em;
-}
-
-.name-input-field {
-  padding: 8px;
-  font-size: 1em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 300px;
-}
-
-.name-input-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1em;
-  margin-left: 10px;
-  transition: background-color 0.3s ease;
-}
-
-.name-input-button:hover {
-  background-color: #0056b3;
-}
-
 /* Responsive design */
 @media (max-width: 768px) {
   .App {
@@ -241,5 +184,9 @@ button:hover {
 
   h3 {
     font-size: 1.5em;
+  }
+
+  .name-input-field {
+    width: 100%;
   }
 }

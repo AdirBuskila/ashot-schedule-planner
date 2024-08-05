@@ -31,6 +31,8 @@ const AvailabilityForm = ({ guards, onSubmit }) => {
 
   return (
     <form className="availability-form" onSubmit={handleSubmit}>
+      <h2>Set Availability</h2>
+      <p>Select the shifts each guard is available for on each day:</p>
       <button type="button" onClick={checkAll}>Check All</button>
       {guards.map((guard, guardIndex) => (
         <div key={guardIndex} className="guard-availability">
