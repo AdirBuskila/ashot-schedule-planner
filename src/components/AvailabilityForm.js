@@ -1,4 +1,3 @@
-// src/components/AvailabilityForm.js
 import React from 'react';
 import { DAYS, SHIFT_TYPES } from '../constants';
 
@@ -9,6 +8,7 @@ const AvailabilityForm = ({ guards, onSubmit }) => {
       return acc;
     }, {})
   );
+  const [isAllChecked, setIsAllChecked] = React.useState(false);
 
   const handleChange = (guard, dayIndex, shiftIndex) => {
     const newAvailability = { ...availability };
@@ -22,18 +22,34 @@ const AvailabilityForm = ({ guards, onSubmit }) => {
   };
 
   const checkAll = () => {
+    setIsAllChecked(true);
     const allChecked = guards.reduce((acc, guard) => {
-      acc[guard] = Array(7).fill([true, true, true]);
+      acc[guard] = Array(DAYS.length).fill(null).map(() => Array(SHIFT_TYPES.length).fill(true));
       return acc;
     }, {});
     setAvailability(allChecked);
+  };
+
+  const uncheckAll = () => {
+    setIsAllChecked(false);
+    const allUnchecked = guards.reduce((acc, guard) => {
+      acc[guard] = Array(DAYS.length).fill(null).map(() => Array(SHIFT_TYPES.length).fill(false));
+      return acc;
+    }, {});
+    setAvailability(allUnchecked);
   };
 
   return (
     <form className="availability-form" onSubmit={handleSubmit}>
       <h2>Set Availability</h2>
       <p>Select the shifts each guard is available for on each day:</p>
-      <button type="button" onClick={checkAll}>Check All</button>
+      <div className="button-container">
+        {!isAllChecked ? (
+          <button type="button" onClick={checkAll}>Check All</button>
+        ) : (
+          <button type="button" onClick={uncheckAll}>Uncheck All</button>
+        )}
+      </div>
       {guards.map((guard, guardIndex) => (
         <div key={guardIndex} className="guard-availability">
           <h3>{guard}</h3>
