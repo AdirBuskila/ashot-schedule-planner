@@ -54,6 +54,10 @@ h1 {
   cursor: pointer;
 }
 
+h2 {
+  color: #007bff;
+}
+
 /* Guard name styling */
 h3 {
   color: #007bff;
