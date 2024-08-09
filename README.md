@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+# 🛡️ Guard Schedule Planner 🛡️
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Guard Schedule Planner! This tool is designed to help efficiently and fairly assign guards to shifts throughout the week. By following a systematic process, we ensure that every shift is covered while maintaining fairness among the guards.
 
-## Available Scripts
+## 📖 Table of Contents
+- [Introduction](#-introduction)
+- [Features](#-features)
+- [How It Works](#-how-it-works)
+- [Setup Instructions](#-setup-instructions)
+- [Scheduling Process Explained](#-scheduling-process-explained)
+  - [Ensure Minimum Coverage First](#1-ensure-minimum-coverage-first)
+  - [Handle Understaffed Shifts Early](#2-handle-understaffed-shifts-early)
+  - [Fallback Assignment Logic](#3-fallback-assignment-logic)
+  - [Randomization as a Last Resort](#4-randomization-as-a-last-resort)
+  - [Final Verification and Rebalancing](#5-final-verification-and-rebalancing)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-In the project directory, you can run:
+## 🌟 Introduction
 
-### `npm start`
+The Guard Schedule Planner is a tool designed to automatically generate a schedule for a group of guards, ensuring that all shifts are covered. The application takes into account each guard's availability and aims to distribute shifts as fairly as possible.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## ✨ Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Automated Scheduling:** Automatically assigns guards to shifts based on their availability.
+- **Fair Distribution:** Ensures that shifts are distributed fairly among all guards.
+- **Responsive Design:** User interface is designed to work on both desktop and mobile devices.
+- **Language Support:** Switch between English and Hebrew with ease.
 
-### `npm test`
+## ⚙️ How It Works
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The Guard Schedule Planner operates by taking input from the user regarding which guards are available for which shifts. The application then uses an intelligent algorithm to assign guards to shifts, ensuring that all shifts are covered while maintaining fairness.
 
-### `npm run build`
+## 🛠️ Setup Instructions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Clone the Repository:**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    ```bash
+    git clone https://github.com/yourusername/guard-schedule-planner.git
+    cd guard-schedule-planner
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. **Install Dependencies:**
 
-### `npm run eject`
+    ```bash
+    npm install
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. **Run the Application:**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    ```bash
+    npm start
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. **Open in Browser:**
+   - Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📝 Scheduling Process Explained
 
-## Learn More
+The scheduling process follows a well-defined strategy to ensure that all shifts are covered fairly and efficiently:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 1. Ensure Minimum Coverage First
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **💼 Goal:** Before starting the assignment process, ensure that there are enough guards available to cover all shifts.
+- **🔍 How:** The algorithm checks if the total number of guards available for each shift type meets the minimum required shifts for the entire schedule. This step prevents any uncovered shifts due to a lack of available guards.
 
-### Code Splitting
+### 2. Handle Understaffed Shifts Early
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **🚨 Goal:** Prioritize shifts that have fewer available guards to prevent potential gaps.
+- **🔄 How:** The algorithm first assigns guards to the most under-covered shifts (e.g., night shifts or weekend shifts with fewer volunteers). This minimizes the chance of ending up with shifts that cannot be filled later in the process.
 
-### Analyzing the Bundle Size
+### 3. Fallback Assignment Logic
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **🛠️ Goal:** Ensure that no shift goes unfilled, even if it requires breaking the fairness rules.
+- **🔧 How:** If a shift cannot be filled using the standard fairness logic (assigning guards with fewer shifts first), the algorithm will assign any available guard, regardless of their current shift count, to ensure that all shifts are covered.
 
-### Making a Progressive Web App
+### 4. Randomization as a Last Resort
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **🎲 Goal:** Avoid bias and fill any remaining shifts that are difficult to assign.
+- **🔀 How:** If all other strategies fail, the algorithm will randomly assign available guards to the remaining unfilled shifts. This helps avoid situations where some shifts remain uncovered due to the constraints of fairness and availability.
 
-### Advanced Configuration
+### 5. Final Verification and Rebalancing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **✔️ Goal:** Ensure the final schedule is complete and balanced.
+- **📝 How:** After the initial assignment, the algorithm performs a final verification. It checks if all shifts are filled and rebalances by reassigning guards from shifts with more than their expected shift count to those that are under-covered.
 
-### Deployment
+## 🤝 Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+We welcome contributions to improve the Guard Schedule Planner! If you'd like to contribute, please follow these steps:
 
-### `npm run build` fails to minify
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Commit your changes with a descriptive message.
+4. Push your branch to your fork.
+5. Create a pull request to the main repository.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📜 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
