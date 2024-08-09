@@ -36,7 +36,7 @@ The Guard Schedule Planner operates by taking input from the user regarding whic
 1. **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/yourusername/guard-schedule-planner.git
+    git clone https://github.com/AdirBuskila/guard-schedule-planner.git
     cd guard-schedule-planner
     ```
 
