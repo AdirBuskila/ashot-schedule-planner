@@ -278,6 +278,10 @@ button:hover {
   }
 }
 
+.auto-fill-button {
+  margin: 5px;
+}
+
 /* Mobile screens */
 @media (max-width: 480px) {
   .App {

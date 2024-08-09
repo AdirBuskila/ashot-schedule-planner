@@ -24,24 +24,19 @@ const SchedulePlanner = ({ guards: guardsData, availability, incrementShiftCount
 
   const calculateExpectedShifts = (guardsMap) => {
     let totalAvailableShifts = 0;
-    let totalShifts = 0;
 
-    // Calculate the total available shifts and total required shifts
+    // Calculate the total available shifts
     guardsMap.forEach(guard => {
-      const availabilityMatrix = guard.getAvailabilityMatrix();
       totalAvailableShifts += guard.getTotalAvailableShifts();
-      // Assuming totalShifts is calculated based on the number of shifts required
-      totalShifts += availabilityMatrix.reduce((count, day) => count + day.filter(Boolean).length, 0);
     });
 
-    // Calculate expected shifts for each guard
+    // Calculate expected shifts for each guard based on availability
     guardsMap.forEach(guard => {
       const proportion = guard.getTotalAvailableShifts() / totalAvailableShifts;
-      const expectedShifts = Math.round(proportion * totalShifts);
+      const expectedShifts = Math.round(proportion * 21); // Assuming 21 total shifts
       guard.setExpectedShifts(expectedShifts);
     });
   };
-
 
   const assignGuardsToShifts = (guardsMap) => {
     let alertMessages = [];
@@ -62,6 +57,9 @@ const SchedulePlanner = ({ guards: guardsData, availability, incrementShiftCount
         let shiftTypeIndex = getShiftTypeIndex(shift.getShiftType());
 
         let availableGuards = getAvailableGuards(dayIndex, shiftTypeIndex, guardsMap);
+
+        // Shuffle the guards randomly
+        availableGuards.sort(() => Math.random() - 0.5);
 
         // Sort guards based on the number of assigned shifts compared to their expected shifts
         availableGuards.sort((g1, g2) => {
