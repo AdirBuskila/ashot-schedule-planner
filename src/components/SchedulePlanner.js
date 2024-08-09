@@ -1,128 +1,58 @@
 import React, { useState, useEffect } from 'react';
 import Schedule from './Schedule';
-import Guard from './Guard';
-import { DAYS, SHIFT_TYPES } from '../constants';
 import ScheduleTable from './ScheduleTable';
+import {
+  initializeGuardsMap,
+  assignGuardsToShifts,
+  checkMinimumCoverage,
+} from '../utils/scheduleUtils';
 
-const SchedulePlanner = ({ guards: guardsData, availability, incrementShiftCount }) => {
+const MAX_ATTEMPTS = 100;
+
+const SchedulePlanner = ({ guards: guardsData, availability, incrementShiftCount, resetShiftCounts, i8 }) => {
   const [guards, setGuards] = useState(new Map());
-  const [schedule] = useState(new Schedule());
+  const [schedule, setSchedule] = useState(new Schedule());
   const [alertMessages, setAlertMessages] = useState([]);
+  const [attempts, setAttempts] = useState(0);
 
   useEffect(() => {
-    initializeGuardsAndSchedule();
+    runSchedulingProcess();
   }, [guardsData, availability]);
 
-  const initializeGuardsAndSchedule = () => {
-    let guardsMap = new Map();
-    guardsData.forEach((name) => {
-      guardsMap.set(name, new Guard(name, availability[name]));
-    });
-    setGuards(guardsMap);
-    assignGuardsToShifts(guardsMap);
-  };
+  const runSchedulingProcess = () => {
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+      resetShiftCounts(); // Reset shift counts before each attempt
+      const guardsMap = initializeGuardsMap(guardsData, availability);
+      resetGuardsAssignedShifts(guardsMap);
 
-  const calculateExpectedShifts = (guardsMap) => {
-    let totalAvailableShifts = 0;
-    let totalShifts = 0;
+      const newSchedule = new Schedule(); // Reset schedule each attempt
 
-    // Calculate the total available shifts and total required shifts
-    guardsMap.forEach(guard => {
-      const availabilityMatrix = guard.getAvailabilityMatrix();
-      totalAvailableShifts += guard.getTotalAvailableShifts();
-      // Assuming totalShifts is calculated based on the number of shifts required
-      totalShifts += availabilityMatrix.reduce((count, day) => count + day.filter(Boolean).length, 0);
-    });
+      setGuards(guardsMap);
+      setSchedule(newSchedule);
+      setAlertMessages([]);
 
-    // Calculate expected shifts for each guard
-    guardsMap.forEach(guard => {
-      const proportion = guard.getTotalAvailableShifts() / totalAvailableShifts;
-      const expectedShifts = Math.round(proportion * totalShifts);
-      guard.setExpectedShifts(expectedShifts);
-    });
-  };
+      const isSuccess = assignGuardsToShifts(guardsMap, newSchedule, incrementShiftCount, setAlertMessages);
 
-
-  const assignGuardsToShifts = (guardsMap) => {
-    let alertMessages = [];
-    let allShiftsFilled = true;
-
-    // Calculate expected shifts per guard based on availability
-    calculateExpectedShifts(guardsMap);
-
-    DAYS.forEach(day => {
-      let shifts = schedule.getShiftsForDay(day);
-      if (!shifts || shifts.length === 0) {
-        console.log(`No shifts found for ${day}`);
-        return;
+      if (isSuccess) {
+        setSchedule(newSchedule);
+        break;
+      } else if (attempt === MAX_ATTEMPTS) {
+        setAlertMessages(prev => [...prev, `FAILED: Could not create a complete schedule after ${MAX_ATTEMPTS} attempts.`]);
       }
 
-      shifts.forEach(shift => {
-        let dayIndex = getDayIndex(day);
-        let shiftTypeIndex = getShiftTypeIndex(shift.getShiftType());
+      setAttempts(attempt);
+    }
+  };
 
-        let availableGuards = getAvailableGuards(dayIndex, shiftTypeIndex, guardsMap);
-
-        // Sort guards based on the number of assigned shifts compared to their expected shifts
-        availableGuards.sort((g1, g2) => {
-          const diff1 = g1.getAssignedShiftsCount() - g1.expectedShifts;
-          const diff2 = g2.getAssignedShiftsCount() - g2.expectedShifts;
-          return diff1 - diff2;
-        });
-
-        availableGuards.forEach(guard => {
-          if (shift.getAssignedGuards().length < shift.getRequiredGuards() && canAssignGuard(guard, shift)) {
-            shift.assignGuard(guard);
-            guard.incrementAssignedShiftsCount();
-            incrementShiftCount(guard.getName());
-          }
-        });
-
-        if (shift.getAssignedGuards().length < shift.getRequiredGuards()) {
-          alertMessages.push(`PROBLEM: Not enough guards for ${day} ${shift.getShiftType()}`);
-          allShiftsFilled = false;
-        }
-      });
+  const resetGuardsAssignedShifts = (guardsMap) => {
+    guardsMap.forEach(guard => {
+      guard.resetAssignedShiftsCount(); // Reset assigned shifts count to 0
     });
-
-    setAlertMessages(alertMessages);
-  };
-
-  const getAvailableGuards = (day, shiftType, guardsMap) => {
-    return Array.from(guardsMap.values()).filter(guard => guard.isAvailable(day, shiftType));
-  };
-
-  const canAssignGuard = (guard, shift) => {
-    if (schedule.getShiftsForDay(shift.getDay()).some(s => s.getAssignedGuards().includes(guard))) {
-      return false;
-    }
-
-    if (shift.getShiftType() === 'Morning') {
-      const previousDay = getPreviousDay(shift.getDay());
-      if (previousDay && schedule.getShiftsForDay(previousDay).some(s => s.getShiftType() === 'Night' && s.getAssignedGuards().includes(guard))) {
-        return false;
-      }
-    }
-
-    return true;
-  };
-
-  const getPreviousDay = (currentDay) => {
-    const index = DAYS.indexOf(currentDay);
-    return index === 0 ? null : DAYS[index - 1];
-  };
-
-  const getDayIndex = (day) => {
-    return DAYS.indexOf(day);
-  };
-
-  const getShiftTypeIndex = (shiftType) => {
-    return SHIFT_TYPES.indexOf(shiftType);
   };
 
   return (
     <div>
-      <ScheduleTable schedule={schedule} />
+      <ScheduleTable schedule={schedule} i8={i8} />
       {alertMessages.length > 0 && (
         <div className="alert-messages">
           <h3>Alerts</h3>

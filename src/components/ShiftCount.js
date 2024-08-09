@@ -1,14 +1,16 @@
 import React from 'react';
+import { content } from '../i8';
 
-const ShiftCount = ({ shiftCounts }) => {
+
+const ShiftCount = ({ shiftCounts, i8 }) => {
     return (
         <div className="shift-count">
-            <h2>Shift Count Per Guard</h2>
+            <h2>{content[i8].shiftCountTitle}</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Guard</th>
-                        <th>Number of Shifts</th>
+                        <th>{content[i8].guard}</th>
+                        <th>{content[i8].numberOfShifts}</th>
                     </tr>
                 </thead>
                 <tbody>

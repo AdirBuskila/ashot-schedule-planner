@@ -1,10 +1,11 @@
 // src/components/ScheduleTable.js
 import React from 'react';
+import { content } from '../i8';
 import { DAYS, SHIFT_TYPES } from '../constants';
 
-const ScheduleTable = ({ schedule }) => (
+const ScheduleTable = ({ schedule, i8 }) => (
   <div className="schedule-table">
-    <h2>Schedule Overview</h2>
+    <h2>{content[i8].scheduleOverview}</h2>
     <table>
       <thead>
         <tr>

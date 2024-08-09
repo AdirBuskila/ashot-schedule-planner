@@ -13,22 +13,30 @@ export const content = {
     noShift: "No shift",
     alertTitle: "Alert Messages",
     enterNames: "Enter guard names (comma-separated):",
-    namePlaceholder: "Adir, Ofir, Shahar"
+    namePlaceholder: "Adir, Ofir, Shahar",
+    week: "Week",
+    guard: "Guard",
+    numberOfShifts: "Number of Shifts",
+    scheduleOverview: "Schedule Overview"
   },
   HE: {
-    title: "מתכנן לוח זמנים של השומרים",
+    title: "מתכנן לוח זמנים של המאבטחים",
     subtitle: "חסוך זמן וכאב ראש עם תכנון אוטומטי!",
     autoFillButton: "צוות עשות",
     setAvailability: "הגדר זמינות",
-    availabilityInstructions: "בחר את המשמרות שבהן כל שומר זמין בכל יום:",
+    availabilityInstructions: "בחר את המשמרות שבהן כל מאבטח זמין בכל יום:",
     checkAll: "סמן הכל",
     uncheckAll: "בטל סימון הכל",
     submit: "שלח",
     reset: "אפס",
-    shiftCountTitle: "ספירת משמרות לכל שומר",
+    shiftCountTitle: "ספירת משמרות לכל מאבטח",
     noShift: "אין משמרת",
     alertTitle: "הודעות התראה",
-    enterNames: "הכנס שמות שומרים (מופרדים בפסיק):",
-    namePlaceholder: "אדיר, אופיר, שחר"
+    enterNames: "הכנס שמות מאבטחים (מופרדים בפסיק):",
+    namePlaceholder: "אדיר, אופיר, שחר",
+    week: "שבוע",
+    guard: "מאבטח",
+    numberOfShifts: "מספר משמרות",
+    scheduleOverview: "סידור עבודה"
   }
 };

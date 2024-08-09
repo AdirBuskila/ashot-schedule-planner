@@ -36,6 +36,10 @@ class Guard {
     this.assignedShiftsCount++;
   }
 
+  resetAssignedShiftsCount() {
+    this.assignedShiftsCount = 0;
+  }
+
   getExpectedShifts() {
     return this.expectedShifts;
   }

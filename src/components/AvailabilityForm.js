@@ -1,7 +1,8 @@
 import React from 'react';
+import { content } from '../i8';
 import { DAYS, SHIFT_TYPES } from '../constants';
 
-const AvailabilityForm = ({ guards, onSubmit }) => {
+const AvailabilityForm = ({ guards, onSubmit, i8 }) => {
   const [availability, setAvailability] = React.useState(
     guards.reduce((acc, guard) => {
       acc[guard] = Array(DAYS.length).fill(null).map(() => Array(SHIFT_TYPES.length).fill(false));
@@ -41,7 +42,7 @@ const AvailabilityForm = ({ guards, onSubmit }) => {
 
   return (
     <form className="availability-form" onSubmit={handleSubmit}>
-      <h2>Set Availability</h2>
+      <h2>{content[i8].setAvailability}</h2>
       <p>Select the shifts each guard is available for on each day:</p>
       <div className="button-container">
         {!isAllChecked ? (
