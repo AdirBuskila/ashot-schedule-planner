@@ -1,0 +1,61 @@
+/* forms-buttons.css */
+.auto-fill-button{
+    margin: 5px;
+}
+
+
+/* Button styling */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Name input form styling */
+  .name-input-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+  }
+  
+  .name-input-label {
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  
+  .name-input-field {
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 300px;
+  }
+  
+  .name-input-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .name-input-button:hover {
+    background-color: #0056b3;
+  }
+  

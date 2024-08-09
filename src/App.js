@@ -1,4 +1,7 @@
-import './App.css';
+import './styles/base.css';
+import './styles/app.css';
+import './styles/table.css';
+import './styles/forms-buttons.css';
 import React, { useState } from 'react';
 import { content } from './i8';
 import NameInput from './components/NameInput';
