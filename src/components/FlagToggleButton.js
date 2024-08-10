@@ -24,7 +24,7 @@ const FlagToggleButton = ({ changeLanguage }) => {
 
     return (
         <div >
-            <button onClick={changeLanguage}>English - עברית</button>
+            <button onClick={changeLanguage}>🇺🇸 - 🇮🇱</button>
         </div>
     );
 };

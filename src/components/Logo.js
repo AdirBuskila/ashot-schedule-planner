@@ -3,7 +3,7 @@ import '../styles/Logo.css';
 import logo from '../ashot.jpg';
 
 const Logo = () => {
-    const [speed, setSpeed] = useState(5); // initial speed in seconds
+    const [speed, setSpeed] = useState(12); // initial speed in seconds
 
     const handleLogoClick = () => {
         setSpeed(prevSpeed => Math.max(0.1, prevSpeed - 1)); // decrease speed to make it faster, minimum speed of 1s
