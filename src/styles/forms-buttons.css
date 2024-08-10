@@ -59,3 +59,20 @@ button {
     background-color: #0056b3;
   }
   
+
+  .flag-toggle-button-container {
+    text-align: center; /* Center the button in its container */
+}
+
+.flag-toggle-button {
+    font-size: 1.5em; /* Increase the font size */
+    border: none;
+    /* background: none; */
+    cursor: pointer;
+    padding: 0 5px;
+    margin: 0;
+}
+
+.flag-toggle-button:focus {
+    outline: none;
+}
