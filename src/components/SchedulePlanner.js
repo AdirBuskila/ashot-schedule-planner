@@ -4,7 +4,6 @@ import ScheduleTable from './ScheduleTable';
 import {
   initializeGuardsMap,
   assignGuardsToShifts,
-  checkMinimumCoverage,
 } from '../utils/scheduleUtils';
 
 const MAX_ATTEMPTS = 100;
