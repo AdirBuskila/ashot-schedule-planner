@@ -6,7 +6,7 @@ const Logo = () => {
     const [speed, setSpeed] = useState(5); // initial speed in seconds
 
     const handleLogoClick = () => {
-        setSpeed(prevSpeed => Math.max(1, prevSpeed - 1)); // decrease speed to make it faster, minimum speed of 1s
+        setSpeed(prevSpeed => Math.max(0.1, prevSpeed - 1)); // decrease speed to make it faster, minimum speed of 1s
     };
 
     return (

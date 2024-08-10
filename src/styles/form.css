@@ -1,0 +1,115 @@
+/* General styling for the availability form */
+.availability-form {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    text-align: middle;
+}
+  
+.availability-form h2 {
+    color: #007bff;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+  
+.availability-form p {
+    margin-bottom: 20px;
+    color: #555;
+}
+  
+.availability-form .button-container {
+    margin-bottom: 20px;
+}
+  
+.availability-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+  
+.availability-form button:hover {
+    background-color: #0056b3;
+}
+  
+.guard-availability {
+    margin-bottom: 30px;
+}
+  
+.guard-availability h3 {
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+  
+.day-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+  
+.day-container strong {
+    width: 100px;
+    text-align: middle;
+    font-weight: bold;
+    color: #007bff;
+}
+  
+.day-container label {
+    margin-right: 5px;
+}
+  
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+  
+.availability-submit-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+  
+.availability-submit-button:hover {
+    background-color: #218838;
+}
+
+/* Mobile-specific styling */
+@media (max-width: 480px) {
+    .day-container {
+        align-items: flex-end; /* Align items to the bottom on mobile */
+    }
+
+    .day-container strong {
+        width: 80px; /* Adjust the width for smaller screens if necessary */
+        font-size: 0.9em;
+        text-align: left;
+    }
+
+    .availability-form {
+        padding: 15px;
+    }
+
+    .availability-form h2 {
+        font-size: 1.5em;
+    }
+
+    .availability-form button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+}

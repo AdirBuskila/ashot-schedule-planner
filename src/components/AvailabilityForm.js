@@ -43,12 +43,12 @@ const AvailabilityForm = ({ guards, onSubmit, i8 }) => {
   return (
     <form className="availability-form" onSubmit={handleSubmit}>
       <h2>{content[i8].setAvailability}</h2>
-      <p>Select the shifts each guard is available for on each day:</p>
+      <p>{content[i8].availabilityInstructions}</p>
       <div className="button-container">
         {!isAllChecked ? (
-          <button type="button" onClick={checkAll}>Check All</button>
+          <button type="button" onClick={checkAll}>{content[i8].checkAll}</button>
         ) : (
-          <button type="button" onClick={uncheckAll}>Uncheck All</button>
+          <button type="button" onClick={uncheckAll}>{content[i8].uncheckAll}</button>
         )}
       </div>
       {guards.map((guard, guardIndex) => (
@@ -72,7 +72,7 @@ const AvailabilityForm = ({ guards, onSubmit, i8 }) => {
           ))}
         </div>
       ))}
-      <button className="availability-submit-button" type="submit">Submit</button>
+      <button className="availability-submit-button" type="submit">{content[i8].submit}</button>
     </form>
   );
 };

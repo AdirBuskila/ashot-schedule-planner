@@ -1,8 +1,10 @@
 import React from 'react';
 import { content } from '../i8';
-
+import { getDisplayName } from '../utils/tableUtils';
 
 const ShiftCount = ({ shiftCounts, i8 }) => {
+    const guardNamesMapping = content[i8].guardNames;
+
     return (
         <div className="shift-count">
             <h2>{content[i8].shiftCountTitle}</h2>
@@ -16,7 +18,7 @@ const ShiftCount = ({ shiftCounts, i8 }) => {
                 <tbody>
                     {Object.entries(shiftCounts).map(([name, count]) => (
                         <tr key={name}>
-                            <td>{name}</td>
+                            <td>{getDisplayName(name, guardNamesMapping, i8)}</td>
                             <td>{count}</td>
                         </tr>
                     ))}

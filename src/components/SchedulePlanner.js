@@ -35,6 +35,8 @@ const SchedulePlanner = ({ guards: guardsData, availability, incrementShiftCount
 
       if (isSuccess) {
         setSchedule(newSchedule);
+        console.log("Schedule");
+        console.log(newSchedule);
         break;
       } else if (attempt === MAX_ATTEMPTS) {
         setAlertMessages(prev => [...prev, `FAILED: Could not create a complete schedule after ${MAX_ATTEMPTS} attempts.`]);

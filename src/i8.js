@@ -1,3 +1,4 @@
+// src/i8.js
 export const content = {
   EN: {
     title: "Guard Schedule Planner",
@@ -17,7 +18,22 @@ export const content = {
     week: "Week",
     guard: "Guard",
     numberOfShifts: "Number of Shifts",
-    scheduleOverview: "Schedule Overview"
+    scheduleOverview: "Schedule Overview",
+    shiftDay: "Shift/Day",
+    guardNames: {
+      Adir: "Adir",
+      Ofir: "Ofir",
+      Shahar: "Shahar",
+      Itay: "Itay",
+      Gabriel: "Gabriel",
+      Ohad: "Ohad",
+      Orel: "Orel",
+      Ron: "Ron",
+      Sam: "Sam",
+      Yael: "Yael"
+    },
+    days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    shiftTypes: ['Morning', 'Evening', 'Night']
   },
   HE: {
     title: "מתכנן לוח זמנים של המאבטחים",
@@ -37,6 +53,21 @@ export const content = {
     week: "שבוע",
     guard: "מאבטח",
     numberOfShifts: "מספר משמרות",
-    scheduleOverview: "סידור עבודה"
+    scheduleOverview: "סידור עבודה",
+    shiftDay: "משמרת/יום",
+    guardNames: {
+      Adir: "אדיר",
+      Ofir: "אופיר",
+      Shahar: "שחר",
+      Itay: "איתי",
+      Gabriel: "גבריאל",
+      Ohad: "אוהד",
+      Orel: "אוראל",
+      Ron: "רון",
+      Sam: "סאם",
+      Yael: "יעל"
+    },
+    days: ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'],
+    shiftTypes: ['בוקר', 'צהריים', 'לילה']
   }
 };
