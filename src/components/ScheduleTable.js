@@ -1,7 +1,6 @@
-// src/components/ScheduleTable.js
 import React from 'react';
 import { content } from '../i8';
-import { DAYS } from '../constants';
+import { DAYS, SHIFT_TYPES, week, getDateForDay } from '../constants';
 import { getDisplayName, getShiftTypeWithEmoji, mapShiftTypeToEnglish } from '../utils/tableUtils';
 
 const ScheduleTable = ({ schedule, i8 }) => {
@@ -16,9 +15,14 @@ const ScheduleTable = ({ schedule, i8 }) => {
         <thead>
           <tr>
             <th>{content[i8].shiftDay}</th>
-            {daysOfWeek.map((day, index) => (
-              <th key={index}>{day}</th>
-            ))}
+            {DAYS.map((day, index) => {
+              const date = getDateForDay(week.sundayDate, index);
+              return (
+                <th key={index}>
+                  {daysOfWeek[index]} {date}
+                </th>
+              );
+            })}
           </tr>
         </thead>
         <tbody>

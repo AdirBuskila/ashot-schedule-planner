@@ -13,7 +13,7 @@ class Shift {
     if (day === 'Saturday' && shiftType === 'Morning') {
       return 1;
     }
-    if (day === 'Friday' && shiftType === 'Evening') {
+    if (day === 'Friday') {
       return 1;
     } else if (day === 'Saturday') {
       return 1;

@@ -12,7 +12,7 @@ import AlertMessages from './components/AlertMessages';
 import Logo from './components/Logo';
 import FlagToggleButton from './components/FlagToggleButton';
 import ShiftCount from './components/ShiftCount';
-import { week33 } from './data';
+import { week } from './constants';
 
 function App() {
   const [guards, setGuards] = useState([]);
@@ -37,7 +37,7 @@ function App() {
   };
 
   const handleAutoAvail = () => {
-    setAvailability(week33);
+    setAvailability(week.availability);
     handleAutoFill();
   };
 
@@ -83,7 +83,7 @@ function App() {
             <h2 className="App-subtitle">{content[language].subtitle}</h2>
             <Logo />
             <button className="auto-fill-button" onClick={handleAutoFill}>{content[language].autoFillButton}</button>
-            <button className="auto-fill-button" onClick={handleAutoAvail}>{content[language].week} 33</button>
+            <button className="auto-fill-button" onClick={handleAutoAvail}>{content[language].week} {week.weekNumber}</button>
           </div>
         )}
       </header>
