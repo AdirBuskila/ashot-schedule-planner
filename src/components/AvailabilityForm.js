@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { content } from '../i8';
 import { DAYS, SHIFT_TYPES } from '../constants';
 
 const AvailabilityForm = ({ guards, onSubmit, i8 }) => {
-  const [availability, setAvailability] = React.useState(
-    guards.reduce((acc, guard) => {
+  // Load the last saved form data from local storage if it exists
+  const loadLastForm = () => {
+    const savedForm = localStorage.getItem('lastForm');
+    if (savedForm) {
+      return JSON.parse(savedForm);
+    }
+    // Default state if no saved form
+    return guards.reduce((acc, guard) => {
       acc[guard] = Array(DAYS.length).fill(null).map(() => Array(SHIFT_TYPES.length).fill(false));
       return acc;
-    }, {})
-  );
+    }, {});
+  };
+
+  const [availability, setAvailability] = React.useState(loadLastForm);
   const [isAllChecked, setIsAllChecked] = React.useState(false);
 
   const handleChange = (guard, dayIndex, shiftIndex) => {
@@ -19,6 +27,8 @@ const AvailabilityForm = ({ guards, onSubmit, i8 }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Save the form data to local storage
+    localStorage.setItem('lastForm', JSON.stringify(availability));
     onSubmit(availability);
   };
 

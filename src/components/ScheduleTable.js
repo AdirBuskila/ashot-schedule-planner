@@ -1,6 +1,6 @@
 import React from 'react';
 import { content } from '../i8';
-import { DAYS, SHIFT_TYPES, week, getDateForDay } from '../constants';
+import { DAYS, week, getDateForDay } from '../constants';
 import { getDisplayName, getShiftTypeWithEmoji, mapShiftTypeToEnglish } from '../utils/tableUtils';
 
 const ScheduleTable = ({ schedule, i8 }) => {
