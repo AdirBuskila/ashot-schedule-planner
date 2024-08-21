@@ -1,64 +1,97 @@
 import Guard from '../components/Guard';
 import { DAYS, SHIFT_TYPES } from '../constants';
 
-// Set the average shift count as a constant
-const AVERAGE_SHIFT_COUNT = 3.5;
+// Define shift requirements
+const SHIFT_REQUIREMENTS = {
+    Morning: 2,
+    Evening: 2,
+    Night: 1,
+};
+
+// Define exceptions for specific days
+const EXCEPTIONS = {
+    Friday: { Morning: 1, Evening: 1 },
+    Saturday: { Morning: 1, Evening: 1 },
+};
+
+// Shuffle an array (Fisher-Yates shuffle algorithm)
+const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+};
 
 // Initialize the guards map with their availability
 export const initializeGuardsMap = (guardsData, availability) => {
     let guardsMap = new Map();
-    guardsData.forEach((name) => {
+    // Shuffle guardsData to avoid initial bias
+    shuffleArray(guardsData).forEach((name) => {
         guardsMap.set(name, new Guard(name, availability[name]));
     });
     return guardsMap;
 };
 
-// Return the constant average shifts
-export const getAverageShifts = () => {
-    return AVERAGE_SHIFT_COUNT;
+// Get the number of required guards for a specific shift
+const getRequiredGuards = (day, shiftType) => {
+    if (EXCEPTIONS[day] && EXCEPTIONS[day][shiftType]) {
+        return EXCEPTIONS[day][shiftType];
+    }
+    return SHIFT_REQUIREMENTS[shiftType];
 };
 
-// Assign guards to shifts while considering average shifts per week
+// Assign guards to shifts with a focus on equal distribution
 export const assignGuardsToShifts = (guardsMap, schedule, incrementShiftCount, setAlertMessages) => {
     let alertMessages = [];
     let allShiftsFilled = true;
 
-    const averageShifts = getAverageShifts();
+    let firstShiftAssigned = false;
 
-    DAYS.forEach(day => {
+    DAYS.forEach((day, dayIndex) => {
         let shifts = schedule.getShiftsForDay(day);
         if (!shifts || shifts.length === 0) {
             console.log(`No shifts found for ${day}`);
             return;
         }
 
-        shifts.forEach(shift => {
-            let dayIndex = DAYS.indexOf(day);
+        shifts.forEach((shift, shiftIndex) => {
             let shiftTypeIndex = SHIFT_TYPES.indexOf(shift.getShiftType());
 
             let availableGuards = Array.from(guardsMap.values()).filter(guard => guard.isAvailable(dayIndex, shiftTypeIndex));
 
-            // Sort guards by the number of assigned shifts compared to the average shifts
-            availableGuards.sort((g1, g2) => g1.getAssignedShiftsCount() - g2.getAssignedShiftsCount());
+            if (!firstShiftAssigned && dayIndex === 0 && shiftIndex === 0 && shift.getShiftType() === 'Morning') {
+                // For the first shift (Sunday morning), pick a guard randomly
+                availableGuards.sort(() => Math.random() - 0.5); // Shuffle the guards randomly
+                const randomGuard = availableGuards.shift(); // Pick the first randomly shuffled guard
+                shift.assignGuard(randomGuard);
+                randomGuard.incrementAssignedShiftsCount();
+                incrementShiftCount(randomGuard.getName());
+                firstShiftAssigned = true; // Mark that the first random assignment has been made
+            } else {
+                // Sort guards by the number of assigned shifts to ensure equal distribution
+                availableGuards.sort((g1, g2) => g1.getAssignedShiftsCount() - g2.getAssignedShiftsCount());
+            }
 
-            let assigned = false;
+            let requiredGuards = getRequiredGuards(day, shift.getShiftType());
+            let assignedGuardsCount = shift.getAssignedGuards().length;
 
-            availableGuards.forEach(guard => {
+            for (let guard of availableGuards) {
                 if (
-                    shift.getAssignedGuards().length < shift.getRequiredGuards() &&
+                    assignedGuardsCount < requiredGuards &&
                     canAssignGuard(guard, shift, schedule)
                 ) {
-                    // Allow assignment even if the guard's shift count exceeds the average
-                    if (guard.getAssignedShiftsCount() < averageShifts || shift.getAssignedGuards().length === 0) {
-                        shift.assignGuard(guard);
-                        guard.incrementAssignedShiftsCount();
-                        incrementShiftCount(guard.getName());
-                        assigned = true;
-                    }
+                    shift.assignGuard(guard);
+                    guard.incrementAssignedShiftsCount();
+                    incrementShiftCount(guard.getName());
+                    assignedGuardsCount++;
                 }
-            });
 
-            if (!assigned && shift.getAssignedGuards().length < shift.getRequiredGuards()) {
+                // Stop assigning once we reach the required number of guards
+                if (assignedGuardsCount >= requiredGuards) break;
+            }
+
+            if (assignedGuardsCount < requiredGuards) {
                 alertMessages.push(`PROBLEM: Not enough guards for ${day} ${shift.getShiftType()}`);
                 allShiftsFilled = false;
             }

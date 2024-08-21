@@ -31,6 +31,7 @@ function App() {
   };
 
   const handleAutoFill = () => {
+    // const teamNames = ['Yael', 'Ofir', 'Shahar', 'Itay', 'Gabriel', 'Ohad', 'Orel', 'Ron', 'Sam', 'Adir']
     const teamNames = ['Adir', 'Ofir', 'Shahar', 'Itay', 'Gabriel', 'Ohad', 'Orel', 'Ron', 'Sam', 'Yael']
     setGuards(teamNames);
     setShiftCounts(teamNames.reduce((acc, guard) => ({ ...acc, [guard]: 0 }), {}));
