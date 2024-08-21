@@ -12,7 +12,6 @@ const SchedulePlanner = ({ guards: guardsData, availability, incrementShiftCount
   const [guards, setGuards] = useState(new Map());
   const [schedule, setSchedule] = useState(new Schedule());
   const [alertMessages, setAlertMessages] = useState([]);
-  const [attempts, setAttempts] = useState(0);
 
   useEffect(() => {
     runSchedulingProcess();
@@ -34,14 +33,11 @@ const SchedulePlanner = ({ guards: guardsData, availability, incrementShiftCount
 
       if (isSuccess) {
         setSchedule(newSchedule);
-        console.log("Schedule");
-        console.log(newSchedule);
+        console.log("Schedule created successfully");
         break;
       } else if (attempt === MAX_ATTEMPTS) {
         setAlertMessages(prev => [...prev, `FAILED: Could not create a complete schedule after ${MAX_ATTEMPTS} attempts.`]);
       }
-
-      setAttempts(attempt);
     }
   };
 
