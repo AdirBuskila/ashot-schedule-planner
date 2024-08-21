@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/ashot-schedule-planner/static/css/main.f99be05d.css",
-    "main.js": "/ashot-schedule-planner/static/js/main.c1d34f0f.js",
+    "main.js": "/ashot-schedule-planner/static/js/main.892fa3a3.js",
     "static/media/ashot.jpg": "/ashot-schedule-planner/static/media/ashot.9a945f40eab67fca9c2d.jpg",
     "index.html": "/ashot-schedule-planner/index.html",
     "main.f99be05d.css.map": "/ashot-schedule-planner/static/css/main.f99be05d.css.map",
-    "main.c1d34f0f.js.map": "/ashot-schedule-planner/static/js/main.c1d34f0f.js.map"
+    "main.892fa3a3.js.map": "/ashot-schedule-planner/static/js/main.892fa3a3.js.map"
   },
   "entrypoints": [
     "static/css/main.f99be05d.css",
-    "static/js/main.c1d34f0f.js"
+    "static/js/main.892fa3a3.js"
   ]
 }
