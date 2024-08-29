@@ -3,7 +3,6 @@ class Guard {
     this.name = name;
     this.availabilityMatrix = availabilityMatrix; // [7][3] matrix
     this.assignedShiftsCount = 0;
-    this.totalAvailableShifts = this.calculateTotalAvailableShifts();
     this.expectedShifts = 0; // This will be set externally based on all guards' availability.
   }
 
@@ -21,7 +20,6 @@ class Guard {
 
   setAvailabilityMatrix(availabilityMatrix) {
     this.availabilityMatrix = availabilityMatrix;
-    this.totalAvailableShifts = this.calculateTotalAvailableShifts(); // Recalculate when matrix is updated
   }
 
   isAvailable(day, shift) {
@@ -54,9 +52,6 @@ class Guard {
     }, 0);
   }
 
-  getTotalAvailableShifts() {
-    return this.totalAvailableShifts;
-  }
 
   toString() {
     return this.name;

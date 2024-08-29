@@ -6,8 +6,9 @@
   }
   
   .logo {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50px;
     animation: rotate 5s linear infinite;
   }
   

@@ -64,10 +64,7 @@ function App() {
   };
 
   const resetApp = () => {
-    setGuards([]);
-    setAvailability(null);
-    setShiftCounts({});
-    setAlertMessages([]);
+    window.location.reload();
   };
 
   const changeLanguage = () => {
