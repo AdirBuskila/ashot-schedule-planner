@@ -1,35 +1,43 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { content } from '../i8';
 import { DAYS, SHIFT_TYPES } from '../constants';
 
+const LOCAL_STORAGE_KEY = 'lastForm';
+
 const AvailabilityForm = ({ guards, onSubmit, i8 }) => {
-  // Load the last saved form data from local storage if it exists
-  const loadLastForm = () => {
-    const savedForm = localStorage.getItem('lastForm');
-    if (savedForm) {
-      return JSON.parse(savedForm);
-    }
-    // Default state if no saved form
+  const [availability, setAvailability] = useState(() => {
+    // Load availability from local storage if available
+    const savedAvailability = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return savedAvailability ? JSON.parse(savedAvailability) : initializeAvailability(guards);
+  });
+
+  const [isAllChecked, setIsAllChecked] = useState(false);
+
+  useEffect(() => {
+    // Save availability to local storage whenever it changes
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(availability));
+  }, [availability]);
+
+  const initializeAvailability = (guards) => {
     return guards.reduce((acc, guard) => {
       acc[guard] = Array(DAYS.length).fill(null).map(() => Array(SHIFT_TYPES.length).fill(false));
       return acc;
     }, {});
   };
 
-  const [availability, setAvailability] = React.useState(loadLastForm);
-  const [isAllChecked, setIsAllChecked] = React.useState(false);
-
   const handleChange = (guard, dayIndex, shiftIndex) => {
     const newAvailability = { ...availability };
-    newAvailability[guard][dayIndex][shiftIndex] = !newAvailability[guard][dayIndex][shiftIndex];
-    setAvailability(newAvailability);
+    if (newAvailability[guard] && newAvailability[guard][dayIndex]) {
+      newAvailability[guard][dayIndex][shiftIndex] = !newAvailability[guard][dayIndex][shiftIndex];
+      setAvailability(newAvailability);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Save the form data to local storage
-    localStorage.setItem('lastForm', JSON.stringify(availability));
     onSubmit(availability);
+    // Save to local storage
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(availability));
   };
 
   const checkAll = () => {
@@ -50,6 +58,12 @@ const AvailabilityForm = ({ guards, onSubmit, i8 }) => {
     setAvailability(allUnchecked);
   };
 
+  const resetForm = () => {
+    const initialAvailability = initializeAvailability(guards);
+    setAvailability(initialAvailability);
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+  };
+
   return (
     <form className="availability-form" onSubmit={handleSubmit}>
       <h2>{content[i8].setAvailability}</h2>
@@ -60,6 +74,7 @@ const AvailabilityForm = ({ guards, onSubmit, i8 }) => {
         ) : (
           <button type="button" onClick={uncheckAll}>{content[i8].uncheckAll}</button>
         )}
+        <button type="button" onClick={resetForm}>{content[i8].reset}</button>
       </div>
       {guards.map((guard, guardIndex) => (
         <div key={guardIndex} className="guard-availability">
@@ -71,7 +86,7 @@ const AvailabilityForm = ({ guards, onSubmit, i8 }) => {
                 <label key={shiftIndex}>
                   <input
                     type="checkbox"
-                    checked={availability[guard][dayIndex][shiftIndex]}
+                    checked={availability[guard] && availability[guard][dayIndex] ? availability[guard][dayIndex][shiftIndex] : false}
                     onChange={() => handleChange(guard, dayIndex, shiftIndex)}
                     id={`${guard}-${day}-${shiftType}`} // Unique identifier
                   />

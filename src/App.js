@@ -84,7 +84,6 @@ function App() {
             <h2 className="App-subtitle">{content[language].subtitle}</h2>
             <Logo />
             <button className="auto-fill-button" onClick={handleAutoFill}>{content[language].autoFillButton}</button>
-            <button className="auto-fill-button" onClick={handleAutoAvail}>{content[language].week} {week.weekNumber}</button>
           </div>
         )}
       </header>
