@@ -20,6 +20,9 @@ export const content = {
     numberOfShifts: "Number of Shifts",
     scheduleOverview: "Schedule Overview",
     shiftDay: "Shift/Day",
+    alertFailed: "FAILED:",
+    alertProblem: "PROBLEM: Not enough guards for",
+    alertFailed: "FAILED: Could not create a complete schedule after 100 attempts.",
     guardNames: {
       Adir: "Adir",
       Ofir: "Ofir",
@@ -55,6 +58,9 @@ export const content = {
     numberOfShifts: "מספר משמרות",
     scheduleOverview: "סידור עבודה",
     shiftDay: "משמרת/יום",
+    alertFailed: "נכשל:",
+    alertProblem: "בעיית משמרות: אין מספיק מאבטחים ל",
+    alertFailed: "נכשל: לא הצלחנו ליצור לוח זמנים מלא לאחר 100 ניסיונות.",
     guardNames: {
       Adir: "אדיר",
       Ofir: "אופיר",

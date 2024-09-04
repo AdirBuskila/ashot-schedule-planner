@@ -1,0 +1,33 @@
+/* Styling for the alert messages container */
+.alert-messages {
+    background-color: #fff3cd;
+    /* Light yellow background */
+    border: 1px solid #ffeeba;
+    /* Border similar to background */
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the problem alerts */
+.alert-problem {
+    color: #d9534f;
+    /* Red text color for problems */
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* Styling for the FAILED alert */
+.alert-failed {
+    color: #721c24;
+    /* Dark red text for failure */
+    font-weight: bold;
+    background-color: #f8d7da;
+    /* Light red background */
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    list-style-type: none;
+    /* Remove bullet points for failed alert */
+}

@@ -39,7 +39,7 @@ const ScheduleTable = ({ schedule, i8 }) => {
                 const englishDay = mapDayToEnglish(day); // Convert to English
                 const shifts = schedule.getShiftsForDay(englishDay);
                 if (!shifts || shifts.length === 0) {
-                  return <td key={dayIndex}>{content[i8].noShift}</td>;
+                  return <td key={dayIndex} className="no-shift">{content[i8].noShift}</td>;
                 }
 
                 const englishShiftType = mapShiftTypeToEnglish(shiftType);
@@ -48,7 +48,7 @@ const ScheduleTable = ({ schedule, i8 }) => {
 
                 return (
                   <td key={dayIndex}>
-                    {assignedGuards.length > 0 ? assignedGuards.join(', ') : content[i8].noShift}
+                    {assignedGuards.length > 0 ? assignedGuards.join(', ') : <span className="no-shift">{content[i8].noShift}</span>}
                   </td>
                 );
               })}

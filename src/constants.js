@@ -6,8 +6,6 @@ export const DAYSI8 = {
 export const SHIFT_TYPES = ['Morning', 'Evening', 'Night'];
 
 export const week = {
-    weekNumber: 35,
-    sundayDate: '25/8', // Date of the Sunday at that week
     availability: {
         Adir: [
             [false, true, false], // Sunday: Evening

@@ -71,3 +71,9 @@
   font-weight: bold;
   color: white;
 }
+
+/* table.css */
+.no-shift {
+  color: red;
+  font-weight: bold;
+}

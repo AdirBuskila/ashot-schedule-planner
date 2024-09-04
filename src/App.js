@@ -1,6 +1,7 @@
 import './styles/base.css';
 import './styles/app.css';
 import './styles/table.css';
+import './styles/alerts.css';
 import './styles/forms-buttons.css';
 import './styles/form.css';
 import React, { useState } from 'react';
@@ -100,7 +101,6 @@ function App() {
               i8={language}
             />
             <ShiftCount shiftCounts={shiftCounts} i8={language} />
-            {alertMessages.length > 0 && <AlertMessages messages={alertMessages} />}
             <button className="reset-button" onClick={resetApp}>{content[language].reset}</button>
           </>
         )}

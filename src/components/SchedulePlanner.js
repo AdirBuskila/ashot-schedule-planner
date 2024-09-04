@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Schedule from './Schedule';
 import ScheduleTable from './ScheduleTable';
+import AlertMessages from './AlertMessages';
 import {
   initializeGuardsMap,
   assignGuardsToShifts,
@@ -51,14 +52,7 @@ const SchedulePlanner = ({ guards: guardsData, availability, incrementShiftCount
     <div>
       <ScheduleTable schedule={schedule} i8={i8} />
       {alertMessages.length > 0 && (
-        <div className="alert-messages">
-          <h3>Alerts</h3>
-          <ul>
-            {alertMessages.map((message, index) => (
-              <li key={index}>{message}</li>
-            ))}
-          </ul>
-        </div>
+        <AlertMessages messages={alertMessages} i8={i8} />
       )}
     </div>
   );
